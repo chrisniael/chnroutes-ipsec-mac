@@ -1,0 +1,58 @@
+#!/bin/bash
+
+VPN_NAME="VPN (Cisco IPSec)"
+PHASE_UP=/usr/local/bin/phase1-up
+PHASE_DOWN=/usr/local/bin/phase1-down
+IPSEC_OLDGW=/tmp/ipsec_oldgw
+
+
+function config_is_ok()
+{
+    if [ ! -e "$PHASE_UP" ]
+    then
+        echo "PhaseUp script is not exist : $PHASE_UP"
+    fi
+
+    if [ ! -e "$PHASE_DOWN" ]
+    then
+        echo "PhaseDown script is not exist : $PHASE_DOWN"
+    fi
+}
+
+function connected()
+{
+    if [ ! -e $IPSEC_OLDGW ]
+    then
+        $PHASE_UP > /dev/null
+        echo "$(date +"%Y-%m-%d %H:%M:%S") Connected."
+    fi
+}
+
+function disconnected()
+{
+    if [ -e $IPSEC_OLDGW ]
+    then
+        $PHASE_DOWN > /dev/null
+        echo "$(date +"%Y-%m-%d %H:%M:%S") Disconnected."
+    fi
+}
+
+config_is_ok
+
+vpn_status=$(scutil --nc status "$VPN_NAME" | sed -n '1p')
+
+case "$vpn_status" in
+    "Connected")
+        connected
+        ;;
+    "Disconnected")
+        disconnected
+        ;;
+    "Connecting")
+        ;;
+    "Disconnecting")
+        ;;
+    *)
+        echo "Unknow status."
+        ;;
+esac

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>local.chnroutes-for-ipsec</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>/usr/local/bin/chnroutes-for-ipsec</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>/var/log/chnroutes-for-ipsec_err.log</string>
+	<key>StandardOutPath</key>
+	<string>/var/log/chnroutes-for-ipsec.log</string>
+	<key>StartInterval</key>
+	<integer>10</integer>
+</dict>
+</plist>
