@@ -21,3 +21,8 @@ brew cask install launchcontrol
 也可以直接使用命令行增加定时任务。
 
 将 `local.chnroutes-for-ipsec.plist` 放在 `/Library/LaunchDaemons` 目录下。
+
+```bash
+cp local.chnroutes-for-ipsec.plist /Library/LaunchDaemons/
+launchctl load -w /Library/LaunchDaemons/local.chnroutes-for-ipsec.plist`
+```
